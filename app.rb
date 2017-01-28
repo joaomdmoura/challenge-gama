@@ -4,5 +4,13 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  erb :index, :locals => {result: nil}
+    if params[:url]
+        endereco = params[:url]
+        endereco_escaped = URI.escape(endereco)
+        url = "http://maps.google.com/maps/api/geocode/json?address=#{endereco_escaped}"
+        response = HTTParty.get(url)
+        parsed   = JSON.parse(response.body)['results']
+    end
+
+    erb :index, :locals => {result: parsed}
 end
