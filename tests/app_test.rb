@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require_relative '../app'
 require 'minitest/autorun'
 require 'rack/test'
@@ -9,8 +10,8 @@ class AppTest < Minitest::Test
     Sinatra::Application
   end
 
-  def test_my_default
+  def test_home_busca_de_endereco
     get '/'
-    assert_match /hey world/, last_response.body
+    assert_match /Busca de Endereço/, last_response.body
   end
 end

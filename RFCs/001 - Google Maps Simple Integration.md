@@ -4,42 +4,60 @@
 # Summary
 [summary]: #summary
 
-Adicionar um campo de texto no qual
+Adicionar um campo de texto no qual o usuário digite um endereço e seja redirecionado
+para a mesma página porém com as informações daquele endereço providas pelo Google Maps
 
 # Motivation
 [motivation]: #motivation
 
-Why are we doing this? What use cases does it support? What is the expected outcome?
+A motivação é poder facilitar identificar informações sobre um endereço, como CEP e
+outras.
 
 # Detailed design
 [design]: #detailed-design
 
-This is the bulk of the RFC. Explain the design in enough detail for somebody familiar
-with the language to understand, and for somebody familiar with the compiler to implement.
-This should get into specifics and corner-cases, and include examples of how the feature is used.
+O design deve ser simples, as requisições para o Google Maps podem ser feitas para
+o seguinte endereço `http://maps.google.com/maps/api/geocode/json?address=#{endereco}`,
+substituindo o `endereco` pela informação digitada pelo usuário.
 
-# How We Teach This
-[how-we-teach-this]: #how-we-teach-this
+Nesse caso a querystring não vai funcionar se tiver espaços, portanto substituir os
+espaços pelo `+` isso pode ser feito usando um método chamado `gsub` que é acessível em
+qualquer string `gsub(' ', '+')`. Por exemplo:
 
-What names and terminology work best for these concepts and why?
-How is this idea best presented—as a continuation of existing Rust patterns, or as a wholly new one?
+```ruby
+string = "str ing"
+string.gsub(' ', '+')
+# => str+ing
+```
 
-Would the acceptance of this proposal change how Rust is taught to new users at any level?
-How should this feature be introduced and taught to existing Rust users?
+Também é preciso escapar o endereço para evitar eventuais caracteres problemáticos:
 
-What additions or changes to the Rust Reference, _The Rust Programming Language_, and/or _Rust by Example_ does it entail?
+`URI.escape(endereco)`
 
-# Drawbacks
-[drawbacks]: #drawbacks
+Para fazer a requisição deverá ser utilizada a gem `httparty`, a chamada é simples:
 
-Why should we *not* do this?
+`HTTParty.get(url)`
 
-# Alternatives
-[alternatives]: #alternatives
+A resposta será em JSON, portanto precisa ser parseada para ser utilizada corretamete:
 
-What other designs have been considered? What is the impact of not doing this?
+`JSON.parse(json)`
 
-# Unresolved questions
-[unresolved]: #unresolved-questions
+Dentro da resposta JSON o conteúdo desejado deve estar na chave `results`.
+Uma simulação total seria:
 
-What parts of the design are still TBD?
+```ruby
+require 'httparty'
+endereco = 'Rua Casa do Ator, 275'.gsub(' ', '+')
+escaped  = URI.escape(endereco)
+url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
+response = HTTParty.get(url)
+parsed   = JSON.parse(response.body)['results']
+```
+
+Essa funcionalidade deve ser implementada no `app.rb` na rota root `/`.
+A informação do JSON podem ser impressa sem nenhum tratamento dentro de uma `<div></div>`
+A funcionalidade deve ser desenvolvida seguindo a metodologia TDD.
+
+O formulário HTML já esta feito, e ao ser submetido ele recarrega a mesma página porém
+passando o conteúdo do `input` como uma query string `url` que pode ser acessada dentro de `app.rb`
+da seguinte forma: `params['url']`.
