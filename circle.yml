@@ -1,3 +1,6 @@
+dependencies:
+  override:
+    - bundle install
 test:
   override:
     - ruby tests/app_test.rb
