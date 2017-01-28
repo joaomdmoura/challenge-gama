@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rack'
 gem 'sinatra'
+gem 'rack-test'
 gem 'minitest'
 gem 'httparty'
