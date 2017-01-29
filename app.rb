@@ -4,12 +4,15 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  parsed = if params['url']
-    escaped  = URI.escape(params['url'])
-    url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
-    response = HTTParty.get(url)
-    JSON.parse(response.body)['results']
-  end
+  erb :index, :locals => {result: parsed}
+end
+
+post '/' do
+  #endereco = 'Rua Casa do Ator, 275'.gsub(' ', '+')
+  #escaped  = URI.escape(endereco)
+  #url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
+  #response = HTTParty.get(url)
+  #parsed   = JSON.parse(response.body)['results']
 
   erb :index, :locals => {result: parsed}
 end
