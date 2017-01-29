@@ -4,7 +4,7 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  erb :index, :locals => {result: parsed}
+  erb :index, :locals => {result: nil}
 end
 
 post '/' do
@@ -14,5 +14,5 @@ post '/' do
   #response = HTTParty.get(url)
   #parsed   = JSON.parse(response.body)['results']
 
-  erb :index, :locals => {result: parsed}
+  erb :index, :locals => {result: nil}
 end
