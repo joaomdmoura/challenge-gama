@@ -20,4 +20,10 @@ class AppTest < Minitest::Test
     assert_match /Avenida Paulista/, last_response.body
   end
 
+  def test_formulario_em_branco
+    get '/'
+    #puts last_response.body
+    assert last_response.ok?
+  end
+
 end
