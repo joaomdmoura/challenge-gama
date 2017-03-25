@@ -19,5 +19,5 @@ class AppTest < Minitest::Test
     get '/?url=adwada'
     assert_match /adwada/, last_response.body
   end
-
+  
 end

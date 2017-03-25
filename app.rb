@@ -4,5 +4,6 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  erb :index, :locals => {result: nil}
+  #puts params['url']
+  erb :index, :locals => {result: params['url']}
 end
