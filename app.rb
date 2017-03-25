@@ -14,4 +14,5 @@ get '/' do
     else
         erb :index, :locals => {result: nil}
     end
+
 end
