@@ -19,4 +19,9 @@ class AppTest < Minitest::Test
     get '/?url=avenida+paulisa_2002'
     assert_match /Avenida Paulista/, last_response.body
   end
+
+  def test_blank_response
+    get '/'
+    assert last_response.ok?
+  end
 end
