@@ -4,6 +4,9 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-  #puts params['url']
-  erb :index, :locals => {result: params['url']}
+
+  endereco = params['url']
+  escaped  = URI.escape(endereco)
+
+  erb :index, :locals => {result: escaped}
 end
