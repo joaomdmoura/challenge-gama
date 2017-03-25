@@ -19,5 +19,10 @@ class AppTest < Minitest::Test
     get '/?url=adwada'
     assert_match /adwada/, last_response.body
   end
-  
+
+  def test_endereco_escaped
+    get '/url=Avenida+Paulista'
+    assert_match /Avenida Paulista/, last_response.body
+  end
+
 end
