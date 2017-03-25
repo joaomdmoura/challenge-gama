@@ -16,7 +16,7 @@ class AppTest < Minitest::Test
   end
 
   def test_busca_de_endereco
-    get '/?url=avenida+paulisa_2002'
+    get '/?url=avenida+paulista'
     assert_match /Avenida Paulista/, last_response.body
   end
 
