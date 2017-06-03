@@ -17,7 +17,7 @@ get '/' do
   escaped  = URI.escape(endereco)
   url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
   response = HTTParty.get(url)
-  result   = JSON.parse(response.body)['results']
+  JSON.parse(response.body)['results']
 end
   erb :index, :locals => {result: result}
 end
