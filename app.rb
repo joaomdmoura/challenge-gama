@@ -22,6 +22,8 @@ get '/' do
         response = HTTParty.get(url)
         result = JSON.parse(response.body)['results']
     end
+    
     erb :index, :locals => {result: result}
+    
 end
     
