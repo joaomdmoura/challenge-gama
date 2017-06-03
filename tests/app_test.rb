@@ -2,6 +2,7 @@
 require_relative '../app'
 require 'minitest/autorun'
 require 'rack/test'
+require 'httparty'
 
 class AppTest < Minitest::Test
   include Rack::Test::Methods
@@ -14,4 +15,16 @@ class AppTest < Minitest::Test
     get '/'
     assert_match /Busca de Endereço/, last_response.body
   end
+
+  def test_home_busca_invalida
+    get '/?url='
+    assert_match /endereco invalido/, last_response.body
+  end
+
+  def test_home_valid_address_search
+    get '/?url=avenida+paulista+1200'
+    assert_match /Avenida Paulista/, last_response.body
+  end
+
 end
+
