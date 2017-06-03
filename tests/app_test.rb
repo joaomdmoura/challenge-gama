@@ -12,21 +12,21 @@ class AppTest < Minitest::Test
 
   def test_home_busca_de_endereco
     get '/'
-    assert_match /Busca de Endereço/, last_response.body
+    assert_match /nao digitou nada/, last_response.body
   end
 
   def test_home_se_nao_tem_nada_retornar_msg
-    get '/url='
+    get '/url'
     
-    assert_match /Vc nao digitou nenhum endereco/, last_response.body
+    assert_match /endereco invalido/, last_response.body
   end
 
-  def test_home_buscou_por_nada
-    get '/'
+  #  def test_home_buscou_por_nada
+  #    get ''
     
-    assert_match /Nao tem o que procurar/, last_response.body
+  #    assert_match /Nao tem o que procurar/, last_response.body
 
-  end
+  #  end
   
   
 end

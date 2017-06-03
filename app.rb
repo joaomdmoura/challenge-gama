@@ -6,18 +6,20 @@ require 'httparty'
 get '/' do
   url = params[:url]
   
-  result =  case url
-            when nil
-              "endereco invalido"
-            when ""
-              "endereco invalido"
-            else
-              send(url)
-            end
+  request =  case url
+              when nil then
+                "nao digitou nada"
+              when "" then
+                "endereco invalido"
+              else
+                request_address(url)
+              end
+  
+  erb :index, :locals => {result: request}
 end
 
 private
-def send(url)
+def request_address(url)
     escaped  = URI.escape(url)
     url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
     response = HTTParty.get(url)
