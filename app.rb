@@ -24,6 +24,6 @@ get '/' do
     end
     
     erb :index, :locals => {result: result}
-    
+    #teste
 end
     
