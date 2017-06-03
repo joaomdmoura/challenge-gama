@@ -16,7 +16,7 @@ class AppTest < Minitest::Test
   end
 
   def test_home_se_nao_tem_nada_retornar_msg
-    get '/url'
+    get '/?url='
     
     assert_match /endereco invalido/, last_response.body
   end
