@@ -3,12 +3,12 @@
   <body>
     <h1>Busca de Endereço</h1>
     <form action = '/' method = 'get'>
-      <input name = 'endereco'/>
+      <input name = 'url'/>
       <button>GET</button>
     </form>
 
     <div>
-      <%= result %>
+      <%= result.empty? ? 'endereço inválido' : result %>
     </div>
   </body>
 </html>

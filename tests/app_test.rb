@@ -16,12 +16,12 @@ class AppTest < Minitest::Test
   end
   
   def test_valid_address
-    get '/?endereco=avenida+paulista+1200'
+    get '/?url=avenida+paulista+1200'
     assert_match /Av. Paulista, 1200/, last_response.body
   end
   
   def test_blank_address
-    get '/?endereco='
+    get '/?url='
     assert_match /endereço inválido/, last_response.body
   end
 end
