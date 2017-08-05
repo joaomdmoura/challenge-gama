@@ -8,7 +8,23 @@
     </form>
 
     <div>
-      <%= result %>
+      <%if result != nil%>
+        <h2><%= result["formatted_address"] %></h2>
+        <ul>
+        <% result["address_components"].each do |component| %>
+          <li><%= component["long_name"]%></li>
+          <li><%= component["short_name"]%></li>
+        <%end%>
+        </ul>
+        <h3>Geometry</h3>
+        <ul>
+          <li>LAT: <%= result["geometry"]["location"]["lat"] %></li>
+          <li>LNG: <%= result["geometry"]["location"]["lng"] %></li>
+        </ul>
+        <p><b>Place Id:</b> <%= result["place_id"]%></p>
+      <%else%>
+        <h2><%= error %></h2>
+      <%end%>
     </div>
   </body>
 </html>
