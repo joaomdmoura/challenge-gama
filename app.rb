@@ -4,9 +4,14 @@ require 'sinatra'
 require 'httparty'
 
 get '/' do
-	escaped = URI.escape(params["url"])
-	url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
-	response = HTTParty.get(url)
-	parsed   = JSON.parse(response.body)['results']
-  erb :index, :locals => {result: parsed}
+	if params[:url] && params[:url] != '' then 
+		escaped = URI.escape(params[:url])
+		url      = "http://maps.google.com/maps/api/geocode/json?address=#{escaped}"
+		response = HTTParty.get(url)
+		parsed   = JSON.parse(response.body)['results']
+		erb :index, :locals => {result: parsed}
+	else
+		erb :index, :locals => {result: nil}	
+	end
+	
 end

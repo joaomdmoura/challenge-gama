@@ -8,7 +8,11 @@
     </form>
 
     <div>
-      <%= result %>
+      <%if result != nil%>
+        <%= result %>
+      <%else%>
+        <h2>Endereço Inválido</h2>
+      <%end%>
     </div>
   </body>
 </html>

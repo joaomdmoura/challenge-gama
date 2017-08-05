@@ -19,4 +19,10 @@ class AppTest < Minitest::Test
     get '/?url=Avenida+Mato+Grosso+1010'
     assert_match /Avenida Mato Grosso/, last_response.body
   end
+
+  def test_home_busca_invalida
+    get '/?url='
+    assert_match /Endereço Inválido/, last_response.body
+  end
+
 end
